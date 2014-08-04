@@ -1,10 +1,11 @@
 DZE_ActionInProgress = true;
 
-_object = cursorTarget;
+_object = cursorTarget;//nearestObject [player,"VaultStorageLocked"];
 
 _weapon =	 getWeaponCargo _object;
 _magazine =   getMagazineCargo _object ;
 _backpack =  getBackpackCargo _object;
+_playerUID = getPlayerUID player;
 
 
 _newCombo = dayz_combination;
@@ -33,16 +34,21 @@ cutText [format["Your new Key: %1", _actual], "PLAIN DOWN"];
 			
 		    _newobject setVariable ["WeaponCargo", _weapon ,true];
 			_newobject setVariable ["MagazineCargo", _magazine ,true];
-			_newobject setVariable ["BackpackCargo", _backpack,true];
+			_newobject setVariable ["BackpackCargo", _backpack,true];		
+			_newobject setVariable ["ownerPUID",_playerUID,true];
+			
+
+			
 			_newobject setVariable["packing",0];
 			player reveal _newobject;
 			
 
-			PVDZE_obj_Swap = [_actual,_newobject,[_dir,_location],_classname,_object,player];
+			PVDZE_obj_Swap = [_actual,_newobject,[_dir,_location,_playerUID],_classname,_object,player];
 			publicVariableServer "PVDZE_obj_Swap";
 		    sleep 1;
+			dayz_combination = _newCombo;
            _newobject spawn player_unlockVault;
-		
-		
+
+
 			
 DZE_ActionInProgress = false;

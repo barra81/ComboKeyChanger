@@ -1,4 +1,4 @@
-
+_playerUID = getPlayerUID player;
 _object = dayz_selectedDoor;
 _newCombo = DZE_Lock_Door;
 _object setVariable ["CharacterID",_newCombo,true];
@@ -19,8 +19,10 @@ _classname = typeOf _object;
 
 			// Set location
 			_newobject setPosATL _location;
+			
+			_newobject setVariable ["ownerPUID",_playerUID,true];
 
-			PVDZE_obj_Swap = [_actual,_newobject,[_dir,_location],_classname,_object,player];
+			PVDZE_obj_Swap = [_actual,_newobject,[_dir,_location,_playerUID],_classname,_object,player];
 			publicVariableServer "PVDZE_obj_Swap";
 
 			player reveal _newobject;
